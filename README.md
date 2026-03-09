@@ -45,7 +45,7 @@ To get this project running on your local machine:
 
 1.  **Clone the Repo:**
     ```bash
-    git clone [https://github.com/your-username/SeatSphere.git](https://github.com/your-username/SeatSphere.git)
+    git clone [https://github.com/daniellexkemp/SeatSphere.git](https://github.com/daniellexkemp/SeatSphere.git)
     ```
 2.  **Database Setup:** Import the `.sql` file found in `/4_data_collection` into your MySQL Workbench.
 3.  **Run Backend:** Navigate to `/1_code/SeatSphereBackend` and run the Spring Boot application.
