@@ -1,7 +1,7 @@
-# 🎟️ SeatSphere: Modern Movie Ticket Booking System
+# 🎟️ SeatSphere: Movie Ticket Booking System
 **Lead Developer:** Danielle Kemp  
 **Version:** 1.0  
-**Tech Stack:** Java Spring Boot, Node.js, Express, MySQL
+**Tech Stack:** Java Spring Boot, Node.js, MySQL
 
 ---
 
