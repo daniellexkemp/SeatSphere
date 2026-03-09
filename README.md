@@ -26,7 +26,7 @@
 This repository is organized into four main modules. Please click into each folder to view its specific documentation:
 
 1.  [**1_code**](./1_code/): Contains the Java Spring Boot Backend and the Node.js Frontend.
-2.  [**2_unit_testing**](./2_unit_testing/): JUnit and Mockito test suites for business logic validation.
+2.  [**2_unit_testing**](./2_unit_testing/): Test suites for logic validation.
 3.  [**3_integration_testing**](./3_integration_testing/): End-to-end flow documentation and Postman collections.
 4.  [**4_data_collection**](./4_data_collection/): MySQL schema dumps, ER Diagrams, and data entry logs.
 4. [**5_documentation**](./5_documentation/): Documentation containing Presentation Slides, System Requirements Documentation, and Brochure (with demo) 
