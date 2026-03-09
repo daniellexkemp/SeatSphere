@@ -5,6 +5,10 @@
 
 ---
 
+<p align="center">
+  <img src="./3_integration_testing/screenshots/3_ui_home.png" width="500" alt="SeatSphere Home Screen">
+</p>
+
 ## 📖 Project Overview
 **SeatSphere** (branded as *HappySeats*) is a full-stack, decoupled web application designed to streamline the cinema-going experience. Users can browse a curated selection of 13 movies, view 62 unique showtimes across 6 different theater halls, and reserve seats with real-time accessibility (ADA) considerations.
 
