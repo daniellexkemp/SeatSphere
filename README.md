@@ -51,7 +51,7 @@ To get this project running on your local machine:
 3.  **Run Backend:** Navigate to `/1_code/SeatSphereBackend` and run the Spring Boot application.
 4.  **Run Frontend:** Navigate to `/1_code/SeatSphereFrontend`, run `npm install`, then `npm start`.
 
-*Detailed startup instructions can be found in the [1_code README](./1_code/).*
+*Detailed startup instructions can be found in the [1_code README1](./1_code/).*
 
 
 
