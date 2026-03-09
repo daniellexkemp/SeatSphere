@@ -33,6 +33,35 @@ This repository is organized into four main modules. Please click into each fold
 
 ---
 
+## 🏗️ Technical Architecture & File Map
+
+SeatSphere utilizes a decoupled Full-Stack architecture. The **Java Spring Boot API** manages the business logic and database persistence, while the **Node.js/Express Frontend** provides a responsive, interactive user experience.
+```
+📦 SEATSPHERE
+┣ 📂 SeatSphereBackend
+┃ ┣ 📂 src/main/java/com/seatsphere
+┃ ┃ ┣ 📂 config
+┃ ┃ ┣ 📂 controller
+┃ ┃ ┣ 📂 model
+┃ ┃ ┣ 📂 repository
+┃ ┃ ┣ 📂 service
+┃ ┃ ┗ 📜 SeatSphereBackendApplication.java
+┃ ┗ 📂 src/main/resources
+┃
+┗ 📂 SeatSphereFrontend
+  ┣ 📂 public
+  ┃ ┣ 📂 css
+  ┃ ┣ 📂 js
+  ┃ ┗ 📂 media
+  ┣ 📜 index.html
+  ┣ 📜 seats.html
+  ┣ 📜 checkout.html
+  ┣ 📜 confirmation.html
+  ┣ 📜 dashboard.html
+  ┗ 📜 server.js
+```
+---
+
 ## 🛠️ Technology Stack
 | Layer | Technology |
 | :--- | :--- |
