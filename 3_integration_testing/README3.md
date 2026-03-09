@@ -21,12 +21,14 @@ To verify the handshake between the Java API and the Node.js frontend, both serv
 ### 🛣️ The User Journey Flow
 1.  **`index.html`**: Fetches movie list (Dracula, Zootopia 2, etc.) and 62 showtimes from MySQL.
    ![Home Page](./screenshots/3_ui_home.png)
-3.  **`seats.html`**: Retrieves specific layouts for Halls 1-6 and maps `is_handicap` seats.
+2.  **`seats.html`**: Retrieves specific layouts for Halls 1-6 and maps `is_handicap` seats.
    ![Seating](./screenshots/4_ui_seats.png)
-5.  **`checkout.html`**: Collects guest info (Email, Card, Phone) and POSTs booking data.
+3.  **`checkout.html`**: Collects guest info (Email, Card, Phone) and POSTs booking data.
    ![Confirmation](./screenshots/5_ui_checkout.png)
-7.  **`confirmation.html`**: Retrieves the generated Booking ID and QR code for the final receipt.
+4.  **`confirmation.html`**: Retrieves the generated Booking ID and QR code for the final receipt.
    ![Confirmation](./screenshots/6_ui_confirmation.png)
+5. **`dashboard.html`**: Retrieves the generated Booking ID and QR code for the final receipt.
+   ![Confirmation](./screenshots/7_ui_bookings_admin_dashboard.png)
 
 
 
@@ -35,5 +37,6 @@ To verify the handshake between the Java API and the Node.js frontend, both serv
 ## 🛠️ Ongoing Development
 * **Admin Dashboard Sync:** Currently working on fully syncing the Frontend Admin Dashboard with the Backend for live database management.
 * **Data Refining:** Refining fetch calls for Customer Name and Hall name on the final confirmation page.
+
 
 
