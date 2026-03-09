@@ -1,7 +1,6 @@
 # 🎬 SeatSphere (HappySeats) - Movie Ticket Booking System
 ### Folder 3: `3_integration_testing/README.md`
 
-```markdown
 # 🔗 Integration Testing
 **Folder:** `3_integration_testing`
 
@@ -17,3 +16,4 @@ This section tests the end-to-end user flow and the communication between the **
 ## 🛠️ Ongoing Development
 * **Admin Dashboard Sync:** Currently working on fully syncing the Frontend Admin Dashboard with the Backend for live database management.
 * **Data Refining:** Refining fetch calls for Customer Name and Hall name on the final confirmation page.
+
