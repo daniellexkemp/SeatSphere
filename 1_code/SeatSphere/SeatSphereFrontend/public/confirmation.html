@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HappySeats | Confirmation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .qr-image { width: 220px; height: 220px; border: 1px solid #eee; padding: 10px; border-radius: 8px; }
+        .detail-label { font-weight: bold; color: #333; width: 130px; display: inline-block; }
+        .confirmation-card { border: none; border-top: 5px solid #dc3545; } /* HappySeats Red Accent */
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- --------------NAVIGATION BAR ------------------------->
+    <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-2" href="/">HappySeats</a>
+            <div class="ms-auto d-flex align-items-center gap-4">
+                <a class="nav-link" href="#">Movies</a>
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Theatres</a>
+                    <ul class="dropdown-menu border-0 shadow">
+                        <li><a class="dropdown-item" href="#" onclick="updateTheatre('Indianapolis Theatre')">Indianapolis Theatre</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="updateTheatre('Northwest Indiana')">Northwest Indiana</a></li>
+                    </ul>
+                </div>
+                <a class="nav-link" href="#">Showtimes</a>
+                <div class="d-flex align-items-center border-start ps-4">
+                    <i class="bi bi-person-circle fs-3 text-secondary me-2"></i>
+                    <span class="small"><span class="text-danger fw-bold">Sign In</span> or <span class="text-decoration-underline text-muted">Create an Account</span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- -------------- MAIN CONTENT ------------------------->
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <div class="movie-header mb-4">
+                    <h1 class="fw-bold display-5" id="movie-title">Movie Title</h1>
+                    <p class="text-muted fs-5">
+                        <span id="theatre-name">Indianapolis Theatre</span> <i class="bi bi-geo-alt-fill text-danger"></i>
+                    </p>
+                    <p class="fw-medium">
+                        <span id="display-date">Tuesday, March 10</span> | 
+                        <span id="display-time">10:00 AM</span> | 
+                        Standard Format
+                    </p>
+                </div>
+
+                <div class="card confirmation-card shadow-sm p-4 mb-5">
+                    <div class="mb-3">
+                        <p class="mb-1 text-muted small uppercase fw-bold">Booking ID</p>
+                        <h4 class="fw-bold text-dark" id="booking-id">#8AF47502</h4>
+                    </div>
+
+                    <div class="qr-section my-4">
+                        <img id="qr-image" class="qr-image" src="" alt="Booking QR Code">
+                        <p class="text-muted small mt-3">Scan this code at the theater entrance</p>
+                    </div>
+
+                    <div class="row text-start mt-4 border-top pt-4">
+                        <div class="col-md-6 border-end">
+                            <p class="small mb-2"><span class="detail-label">Name:</span> <span class="text-muted">Guest User</span></p>
+                            <p class="small mb-2"><span class="detail-label">Email:</span> <span class="text-muted">guest@happynights.com</span></p>
+                            <p class="small mb-2"><span class="detail-label">Total:</span> <span class="text-success fw-bold" id="total-price">$12.50</span></p>
+                        </div>
+                        <div class="col-md-6 ps-md-4">
+                            <p class="small mb-2"><span class="detail-label">Seats:</span> <span class="fw-bold text-danger" id="seats-list">G7, G8</span></p>
+                            <p class="small mb-2"><span class="detail-label">Booking Date:</span> <span class="text-muted" id="book-date">March 9, 2026</span></p>
+                            <p class="small mb-2"><span class="detail-label">Location:</span> <span class="text-muted">Hall <span id="hall-num">1</span></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="/" class="btn btn-outline-secondary px-5 py-2">Return to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- -------------- FOOTER ------------------------->
+    <footer class="container border-top mt-5 pt-5 pb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold mb-0">HappySeats</h4>
+            <div class="footer-links d-flex gap-4 text-muted small">
+                <span>About</span>
+                <span>Careers</span>
+                <a href="/login"><span>Account</span></a>
+                <span>Accessibility</span>
+                <span><a href="/my-bookings" class="text-decoration-none text-muted">SeatSphere</a></span>
+            </div>
+            <div class="social-icons fs-5 d-flex gap-3">
+                <i class="bi bi-instagram"></i><i class="bi bi-facebook"></i><i class="bi bi-twitter-x"></i>
+            </div>
+        </div>
+        <div class="text-center text-muted small">
+            © 2026 HappySeats. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="/js/confirmation.js"></script>
+</body>
+</html>

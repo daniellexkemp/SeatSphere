@@ -1,0 +1,261 @@
+/* -----------------------------------------------------------
+   HappySeats & SeatSphere - style.css
+   ----------------------------------------------------------- */
+
+/* Global Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #fff;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* -----------------  Navigation -----------------  */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    border-bottom: 1px solid #eee;
+}
+
+.navbar-brand {
+    font-weight: 900; 
+    font-size: 2.2rem;
+    color: #444;
+    text-decoration: none;
+    letter-spacing: -1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.sign-in {
+    color: #ff4d4d !important;
+    font-weight: bold;
+}
+
+/* -----------------  Header & Dates -----------------  */
+.home-header {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.home-header h1 {
+    font-weight: 300;
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+.location-sub { color: #888; font-style: italic; }
+
+.date-bar-container { width: fit-content; margin: 0 auto; }
+
+.date-tab {
+    background: none; border: none; font-size: 0.85rem; color: #333;
+    padding: 0 5px 8px 5px; cursor: pointer; line-height: 1.2;
+}
+
+.date-tab.active {
+    color: #ff4d4d; font-weight: bold; border-bottom: 2px solid #ff4d4d;
+}
+
+/* ------------------ Movie Grid & Slider Arrows -----------------  */
+.movie-grid-wrapper {
+    padding: 0 5%; /* Gives space for arrows on the sides */
+}
+
+
+#movie-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important; /* Keeps them in a line */
+    overflow-x: hidden;           /* Hides the 4th, 5th, etc. */
+    scroll-behavior: smooth;
+    gap: 30px;                    
+    padding: 20px 0;
+    width: 100%;
+}
+
+.movie-card {
+    /* MATH: (100% / 3) minus the gap sharing */
+    flex: 0 0 calc(33.333% - 20px) !important; 
+    min-width: 300px; 
+    transition: transform 0.3s ease;
+}
+
+
+.slider-arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 50%; 
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.slider-arrow.prev { left: 0; }
+.slider-arrow.next { right: 0; }
+
+.movie-poster-box {
+    background-color: #ddd; aspect-ratio: 2/3; border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; margin-bottom: 15px;
+}
+
+
+.movie-poster-box img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    border-radius: 15px;
+    filter: grayscale(0%);
+    transition: filter 0.4s ease;
+}
+
+
+.movie-poster-box:hover img { 
+    filter: grayscale(100%); 
+}
+
+.movie-title { 
+    font-weight: bold; 
+    font-size: 1.4rem; 
+    color: #333; 
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+}
+
+.showtime-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.showtime-btn {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    color: #333;
+    text-decoration: none;
+    min-width: 95px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.showtime-btn:hover {
+    border-color: #ff4d4d;
+    color: #ff4d4d;
+}
+
+/* ---------------------- Seat Selection UI --------------------*/
+
+.booking-card {
+    background: #fff;
+    border: 1px solid #eee !important;
+    border-radius: 12px !important;
+}
+
+.screen-indicator {
+    width: 80%;
+    height: 15px;
+    background: #e0e0e0;
+    margin: 0 auto 50px auto;
+    border-bottom-left-radius: 50% 20px;
+    border-bottom-right-radius: 50% 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    letter-spacing: 5px;
+    color: #999;
+}
+
+.seat-grid-container {
+    display: grid;
+    grid-template-columns: repeat(8, 45px); 
+    gap: 12px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.seat {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    background-color: transparent; /* Default for buttons */
+}
+
+.seat.available {
+    border: 2px solid #007bff;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.seat.reserved {
+    background-color: #ddd;
+    cursor: not-allowed;
+    color: #888;
+    border: none;
+}
+
+.seat.selected {
+    background-color: #28a745;
+    border: none;
+    color: white;
+}
+
+/* ----------------- Footer ------------------------ */
+.main-footer {
+    border-top: 1px solid #eee;
+    padding: 50px 10%;
+    margin-top: 80px;
+}
+
+.footer-brand {
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: #444;
+}
+
+.footer-links a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .seat-grid-container {
+        grid-template-columns: repeat(6, 40px);
+    }
+}

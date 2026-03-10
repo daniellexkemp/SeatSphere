@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | HappySeats</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+    <!-- --------------NAVIGATION BAR ------------------------->
+    <nav class="navbar navbar-expand-lg navbar-light py-3 bg-white border-bottom">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-2" href="/">HappySeats</a>
+            <div class="ms-auto d-flex align-items-center gap-4">
+                <a class="nav-link" href="#">Movies</a>
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Theatres</a>
+                    <ul class="dropdown-menu border-0 shadow">
+                        <li><a class="dropdown-item" href="#">Indianapolis Theatre</a></li>
+                        <li><a class="dropdown-item" href="#">Northwest Indiana</a></li>
+                    </ul>
+                </div>
+                <a class="nav-link" href="#">Showtimes</a>
+                <div class="d-flex align-items-center border-start ps-4">
+                    <i class="bi bi-person-circle fs-3 text-secondary me-2"></i>
+                    <span class="small"><span class="text-danger fw-bold">Sign In</span> or <span class="text-decoration-underline text-muted">Create an Account</span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- -------------- MAIN CONTENT ------------------------->
+    <main class="container my-5">
+        <div class="text-center mb-5">
+            <h1 id="movie-title-display" class="fw-bold mb-1">The Greatest Showman</h1>
+            <p class="mb-1"><i class="bi bi-geo-alt-fill"></i> Indianapolis Theatre</p>
+            <p class="text-muted small">1 hour 45 min | Today | <strong id="showtime-display">6:00pm</strong></p>
+            <p class="text-muted small">PG | Standard Format</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <section class="mb-5">
+                    <h3 class="fw-bold mb-4">Checkout</h3>
+                    <p class="small text-muted mb-3">Continue as Guest or <button class="btn btn-dark btn-sm rounded-1 px-3">Login</button></p>
+                    
+                    <form id="checkout-form">
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold mb-1">Email*</label>
+                            <input type="email" class="form-control border-dark rounded-0" required>
+                            <div class="form-text xsmall">Your receipt and order confirmation will be sent to this email address</div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold mb-1">Name*</label>
+                                <input type="text" class="form-control border-secondary rounded-0" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold mb-1">Phone Number*</label>
+                                <input type="tel" class="form-control border-secondary rounded-0" required>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+                <hr class="my-4">
+
+                <!-- -------------- PAYMENT SECTION  ------------------------->
+                <section class="mb-5">
+                    <h3 class="fw-bold mb-4">Payment</h3>
+                    <div class="d-flex flex-wrap gap-4 align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment" id="addCard" checked onchange="toggleCardForm()">
+                            <label class="form-check-label fw-bold" for="addCard">
+                                <i class="bi bi-plus-circle me-1"></i> Add Card
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment" id="googlePay" onchange="toggleCardForm()">
+                            <label class="form-check-label fw-bold" for="googlePay">Google Pay</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment" id="payPal" onchange="toggleCardForm()">
+                            <label class="form-check-label fw-bold" for="payPal">PayPal</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment" id="venmo" onchange="toggleCardForm()">
+                            <label class="form-check-label fw-bold" for="venmo">Venmo</label>
+                        </div>
+                    </div>
+
+                    <div id="credit-card-info" class="p-4 bg-white border border-dark mb-4 shadow-sm">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label small fw-bold mb-1">Card Number*</label>
+                                <input type="text" class="form-control border-secondary rounded-0" placeholder="0000 0000 0000 0000">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold mb-1">Expiration Date*</label>
+                                <input type="text" class="form-control border-secondary rounded-0" placeholder="MM/YY">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold mb-1">CVV*</label>
+                                <input type="text" class="form-control border-secondary rounded-0" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <hr class="my-4">
+
+                <!-- -------------- ORDER TOTAL SECTION ------------------------>
+                <section class="mb-5">
+                    <h3 class="fw-bold mb-4">Order Total</h3>
+                    <div class="row justify-content-end">
+                        <div class="col-md-5">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Subtotal (<span id="ticket-qty">0</span> Tickets)</span>
+                                <span id="subtotal-amount">$0.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <span><i class="bi bi-info-circle small"></i> Service Fee</span>
+                                <span id="service-fee">$1.50</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Tax (7%)</span>
+                                <span id="tax-amount">$0.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between border-top pt-3 mb-4">
+                                <h4 class="fw-bold">Total Due</h4>
+                                <h4 id="final-total" class="fw-bold">$0.00</h4>
+                            </div>
+                            <div class="mb-3">
+                                <p class="small text-muted">Selected Seats: <span id="display-seats" class="fw-bold text-dark">None</span></p>
+                            </div>
+                            <button type="button" class="btn btn-danger w-100 py-3 fw-bold fs-5 rounded-1" onclick="processPurchase()">
+                            Purchase Tickets
+                        </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- -------------- FOOTER ------------------------->
+    <footer class="container border-top mt-5 pt-5 pb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold mb-0">HappySeats</h4>
+            <div class="footer-links d-flex gap-4 text-muted small">
+                <span>About</span>
+                <span>Careers</span>
+                <a href="/login"><span>Account</span></a>
+                <span>Accessibility</span>
+                <span><a href="/my-bookings" class="text-decoration-none text-muted">SeatSphere</a></span>
+            </div>
+            <div class="social-icons fs-5 d-flex gap-3">
+                <i class="bi bi-instagram"></i><i class="bi bi-facebook"></i><i class="bi bi-twitter-x"></i>
+            </div>
+        </div>
+        <div class="text-center text-muted small">
+            © 2026 HappySeats. All rights reserved. &nbsp; Privacy Policy &nbsp; Terms of Service
+        </div>
+    </footer>
+
+<!-- --------------JAVASCRIPT------------------------->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const seats = urlParams.get('seats');
+    const movie = urlParams.get('movie');
+    const time = urlParams.get('time');
+
+    if (seats) {
+        const seatArray = seats.split(',');
+        const count = seatArray.length;
+        
+        const pricePerTicket = 8.00;
+        const serviceFee = 1.50;
+        const taxRate = 0.07;
+
+        const subtotal = count * pricePerTicket;
+        const tax = subtotal * taxRate;
+        const total = subtotal + serviceFee + tax;
+
+        document.getElementById('display-seats').innerText = seats;
+        document.getElementById('ticket-qty').innerText = count;
+        document.getElementById('subtotal-amount').innerText = `$${subtotal.toFixed(2)}`;
+        document.getElementById('tax-amount').innerText = `$${tax.toFixed(2)}`;
+        document.getElementById('final-total').innerText = `$${total.toFixed(2)}`;
+    }
+
+    if (movie) document.getElementById('movie-title-display').innerText = decodeURIComponent(movie);
+    if (time) document.getElementById('showtime-display').innerText = time;
+});
+
+function toggleCardForm() {
+    const cardForm = document.getElementById('credit-card-info');
+    const addCardRadio = document.getElementById('addCard');
+
+    if (addCardRadio.checked) {
+        cardForm.style.display = 'block';
+    } else {
+        cardForm.style.display = 'none';
+    }
+}
+</script>
+
+<!-- THIS LINE FIXES EVERYTHING -->
+<script src="js/checkout.js"></script>
+
+</body>
+</html>
