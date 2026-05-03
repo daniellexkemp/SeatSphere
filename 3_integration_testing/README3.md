@@ -20,10 +20,10 @@ To verify the handshake between the Java API and the Node.js frontend, both serv
 
 ### 🛣️ The User Journey Flow
 1. **`register.html`**: New users register details, which are persisted to the `users` table with the default `CUSTOMER` role.
-   ![Register Page](./Screenshots/1_ui_create_account.png).
-2..  **`login.html`**: Authenticates credentials against the database to establish a secure session.
-   ![Login Page](./Screenshots/2_ui_login.png).
-3..  **`index.html`**: Fetches movie list (Dracula, Zootopia 2, etc.) and 60+ showtimes from MySQL.
+   ![Register Page](./Screenshots/1_ui_create_account.png)
+2.  **`login.html`**: Authenticates credentials against the database to establish a secure session.
+   ![Login Page](./Screenshots/2_ui_login.png)
+3.  **`index.html`**: Fetches movie list (Dracula, Zootopia 2, etc.) and 60+ showtimes from MySQL.
    ![Home Page](./Screenshots/3_ui_home.png)
 4.  **`seats.html`**: Retrieves specific layouts for Halls 1-6 and maps `is_handicap` seats.
    ![Seating](./Screenshots/4_ui_seats.png)
