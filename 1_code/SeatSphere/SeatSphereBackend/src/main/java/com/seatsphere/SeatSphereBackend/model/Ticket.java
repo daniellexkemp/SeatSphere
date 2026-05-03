@@ -5,41 +5,49 @@ import jakarta.persistence.*;
 
 /**
  * Represents the final digital receipt and admission pass for a customer.
- * Contains the qrCodeData used by theater staff for entry validation (REQ 10).
- * Each ticket corresponds to a specific Seat within a confirmed Booking.
- *
- * @author Danielle Kemp
- * @version 1.0
- * @since 2026-03-04
  */
-
 @Entity
 @Table(name = "tickets")
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String qrCodeData;
+
+    @Column(name = "seat_label")
+    private String seatLabel; 
+
+    @Column(name = "seat_row")
+    private String seatRow;   // e.g., "B"
+
+    @Column(name = "seat_number")
+    private int seatNumber;   // e.g., 1
+
 
     @ManyToOne
     @JoinColumn(name = "booking_id")
     @JsonBackReference
     private Booking booking;
 
-    @ManyToOne
-    @JoinColumn(name = "seat_id") // Each ticket is for one specific seat
-    private Seat seat;
-
     public Ticket() {}
 
     // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+    
     public String getQrCodeData() { return qrCodeData; }
     public void setQrCodeData(String qrCodeData) { this.qrCodeData = qrCodeData; }
+
+    public String getSeatLabel() { return seatLabel; }
+    public void setSeatLabel(String seatLabel) { this.seatLabel = seatLabel; }
+    
+    // Updated Getters/Setters
+    public String getSeatRow() { return seatRow; }
+    public void setSeatRow(String seatRow) { this.seatRow = seatRow; }
+    
+    public int getSeatNumber() { return seatNumber; }
+    public void setSeatNumber(int seatNumber) { this.seatNumber = seatNumber; }
+    
     public Booking getBooking() { return booking; }
     public void setBooking(Booking booking) { this.booking = booking; }
-    public Seat getSeat() { return seat; }
-    public void setSeat(Seat seat) { this.seat = seat; }
 }
