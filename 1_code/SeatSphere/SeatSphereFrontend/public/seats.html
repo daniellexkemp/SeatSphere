@@ -1,3 +1,4 @@
+<!--seats.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +27,12 @@
                 <a class="nav-link" href="#">Showtimes</a>
                 <div class="d-flex align-items-center border-start ps-4">
                     <i class="bi bi-person-circle fs-3 text-secondary me-2"></i>
-                    <span class="small"><span class="text-danger fw-bold">Sign In</span> or <span class="text-decoration-underline text-muted">Create an Account</span></span>
+
+                    <!--Sign IN, Create an Account, or Authentication-->
+                    <span id="nav-auth-status" class="small"><span class="text-danger fw-bold"><a href="login.html">Sign In</a></span> 
+                    or 
+                    <span class="text-decoration-underline text-muted"><a href="register.html">Create an Account</a></span></span>
+
                 </div>
             </div>
         </div>
@@ -38,8 +44,8 @@
             <div class="col-md-8 text-center">
                 <div class="booking-card p-4 shadow-sm border rounded">
                     <h2 class="fw-bold mb-1" id="movie-name-display">Select Your Seats</h2>
-                    <p class="text-muted mb-4" id="theatre-info">Indianapolis Theatre | <span id="time-display">6:00 PM</span></p>
-                    
+                    <span class="text-muted mb-4" id="theatre-info">Indianapolis Theatre</span> | <span class="text-muted mb-4" id="date-display">Movie Date</span> | <span id="time-display">Movie Time</span></p>
+
                     <div class="screen-indicator mb-5">SCREEN</div>
 
                     <div class="seat-grid-container mb-4" id="seat-map">
@@ -86,6 +92,7 @@
     </footer>
 
     <!-- -------------- JAVASCRIPT ------------------------->
+    <script src="js/auth.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/seats.js"></script>
 </body>
