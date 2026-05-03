@@ -3,31 +3,29 @@
 **Folder:** `2_unit_testing`
 
 ## 📝 Description
-This folder contains a comprehensive suite of **Unit Tests** designed to verify the reliability of the SeatSphere backend. Using a "Test-Driven" mindset, these scripts ensure that business rules—such as seat accessibility, hall capacity, and dynamic pricing—work perfectly in isolation before integration.
-
+This folder contains a comprehensive suite of **Unit Tests** designed to verify the reliability of the SeatSphere backend. These tests ensure that critical rules—such as seat accessibility, hall capacity, and pricing—function correctly in isolation before the system interacts with the live MySQL database.
 
 
 ## 🧰 Testing Frameworks & Tools
-* **JUnit 5:** Industry-standard framework for executing the test lifecycle.
-* **Mockito:** Utilized for "Mocking" repository calls to test Service-level logic without a live MySQL connection.
-* **AssertJ:** Used for fluent and readable assertions.
+* **JUnit 5:** The primary framework used for managing and executing the test lifecycle.
+* **Mockito:** Utilized in `SeatSphereBackendApplicationTests.java` to verify the application context and repository injection.
+* **AssertJ/JUnit Assertions:** Used for fluent and readable assertions.
 
 ## ✅ Key Business Logic Verified
-1.  **Seat Accessibility & Mapping:** Validates `is_handicap` flags to ensure ADA-compliant seating is marked correctly in the UI for Halls 1-6.
-2.  **Strict Hall Capacity:** Ensures Halls 1-6 cannot exceed hardcoded limits (20 or 25 seats).
-3.  **Dynamic Pricing:** Tests `total_amount` calculations, including tax and service fees, against the 13-movie database.
-4.  **Transactional Booking Logic:** Ensures `is_occupied` toggles correctly to prevent "Double Booking."
-5.  **Metadata Integrity:** Validates that Movie metadata (Duration, Rating, Image Path) is formatted correctly.
+1.  **Seat Accessibility & Mapping:** Validates that seats marked as `is_handicap: 1` in the database (such as Seat A-1 and A-5 in Hall 1) are correctly identified by the backend logic.
+2.  **Strict Hall Capacity:** Ensures the system recognizes the specific seat limits for each venue, such as the 24-seat capacity for Hall 1 and the 32-seat capacity for Hall 2.
+3.  **Calculated Pricing:** Verifies that the`total_amount` for bookings accurately reflects the movie's price metadata (e.g., confirming 3 tickets for Cosmic Drift equals $37.50).
+4.  **Database Integration Readiness:** Uses `SeatSphereBackendApplicationTests.java` to confirm that the Spring context can successfully load and inject repositories for Movies, Bookings, and Users, ensuring the code is ready to "talk" to the SQL schema.
+5.  **Metadata Integrity:** Validates that movie metadata—including durations, ratings (R, PG-13, G), and media paths—is correctly handled by the service layer.
 
 ## 📂 Key Test Classes
-* `BookingServiceTest`: Validates price calculation and seat occupancy state changes.
-* `MovieServiceTest`: Ensures manual data entries for titles are handled correctly.
-* `UserValidationTest`: Verifies user roles and contact info constraints.
+* `BookingLogicTest.java`: Focuses on the math and rules behind reservations, including capacity checks and handicap seat identification.
+* `SeatSphereBackendApplicationTests.java`: A comprehensive "smoke test" that ensures the Spring Boot environment and all JPA Repositories (Movie, Booking, User) initialize without errors.
 
 ## 🏃 How to Run
 ### Method 1: IDE (VS Code/IntelliJ)
-1. Navigate to the `src/test/java` folder.
-2. Right-click and select **"Run All Tests"**.
+1. Navigate to src/test/java/com/seatsphere/SeatSphereBackend.
+2. Right-click the folder or a specific file and select "Run Tests".
 
 ### Method 2: Maven Command Line
 ```bash
