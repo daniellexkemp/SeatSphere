@@ -1,0 +1,88 @@
+<!--login.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Login | Happy Seats and SeatSphere Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-body">
+
+    <! -------------- LOGIN CARD ------------------------->
+    <div class="login-card">
+        <h1>Happy Seats</h1>
+        <p>CUSTOMER AND STAFF PORTAL</p>
+        
+        <div id="errorBox" class="error-msg" style="display: none;">Access Denied: Invalid credentials or insufficient permissions.</div>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required placeholder="Enter your username">
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required placeholder="••••••••">
+            </div>
+            
+            <button type="submit" class="login-btn">Secure Login</button>
+        </form>
+
+        <p>New customer? <a href="register.html">Create an Account</a></p>
+
+        <div>
+            <a href="index.html">Return to HappySeats</a>
+            <br>
+            <span>© SeatSphere</span>
+        </div>
+    </div>
+
+    <!-- -------------- JAVASCRIPT ------------------------->
+    <script src="js/auth.js"></script>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorBox = document.getElementById('errorBox');
+            errorBox.style.display = 'none';
+
+            const payload = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:8080/api/users/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // --- THIS IS THE KEY PART ---
+                    // We use localStorage so Danielle stays logged in across sessions
+                    localStorage.setItem('user', JSON.stringify(data));
+                    // ----------------------------
+                    
+                    const role = data.role.toUpperCase();
+
+                    if (role === 'ADMIN' || role === 'MANAGER' || role === 'STAFF') {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    errorBox.style.display = 'block';
+                }
+            } catch (err) {
+                console.error("Portal Error:", err);
+                alert("Cannot connect to Java backend. Check if Spring Boot is running on port 8080.");
+            }
+        });
+    </script>
+</body>
+</html>
