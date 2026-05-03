@@ -8,12 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const movie = urlParams.get('movie');
     const time = urlParams.get('time');
 
+    const pricePerTicket = parseFloat(urlParams.get('price')) || 8.00; // Default price if not provided
+
     // Handle Price Calculations
     if (seats) {
         const seatArray = seats.split(',');
         const count = seatArray.length;
         
-        const pricePerTicket = 8.00;
         const serviceFee = 1.50;
         const taxRate = 0.07; 
 
@@ -46,17 +47,28 @@ function toggleCardForm() {
 // The Purchase Button Function
 async function processPurchase() {
     const params = new URLSearchParams(window.location.search);
-    const sId = params.get('showtimeId') || params.get('id') || "1"; 
-    const seatsParam = params.get('seats') || "A1";
+    const sId = params.get('showtimeId');
+    const seatsParam = params.get('seats') || ""; 
     const totalText = document.getElementById('final-total').innerText.replace('$', '');
 
+    const activeUser = JSON.parse(localStorage.getItem('user'));
+    
+    // Capture the form values so we can send them to the next page
+    const emailInput = document.querySelector('input[type="email"]').value;
+    const nameInput = document.querySelector('input[type="text"]').value;
+
     const bookingData = {
-        showtime: { id: parseInt(sId) }, 
+        user: { id: activeUser ? activeUser.id : null}, 
+        showtime: { id: parseInt(sId)}, 
         totalAmount: parseFloat(totalText),
-        tickets: seatsParam.split(',').map(seat => ({
-            seatNumber: seat.trim(),
-            qrCodeData: "TKT-" + Math.random().toString(36).substr(2, 6).toUpperCase()
-        }))
+        customerEmail: emailInput,
+        customerName: nameInput,
+        tickets: seatsParam.split(',').map(seatLabel => {
+            return {
+                seatLabel: seatLabel.trim(), 
+                qrCodeData: "TKT-" + Math.random().toString(36).substr(2, 6).toUpperCase()
+            };
+        })
     };
 
     try {
@@ -68,13 +80,14 @@ async function processPurchase() {
 
         if (response.ok) {
             const saved = await response.json();
-            window.location.href = `confirmation.html?bookingId=${saved.id}&movie=${params.get('movie')}&time=${params.get('time')}&seats=${seatsParam}&total=${totalText}`;
+            // UPDATED REDIRECT: Added &name and &email to the URL
+            window.location.href = `confirmation.html?bookingId=${saved.id}&movie=${params.get('movie')}&time=${params.get('time')}&date=${params.get('date')}&seats=${seatsParam}&total=${totalText}&name=${encodeURIComponent(nameInput)}&email=${encodeURIComponent(emailInput)}`;
         } else {
-            // Fallback for demo
-            window.location.href = `confirmation.html?bookingId=DEMO&movie=${params.get('movie')}&time=${params.get('time')}&seats=${seatsParam}&total=${totalText}`;
+            throw new Error("Server Error");
         }
     } catch (e) {
-        // Fallback for offline demo
-        window.location.href = `confirmation.html?bookingId=OFFLINE&movie=${params.get('movie')}&time=${params.get('time')}&seats=${seatsParam}&total=${totalText}`;
+        console.error("Booking failed, using fallback:", e);
+        // UPDATED FALLBACK: Added &name and &email here as well
+        window.location.href = `confirmation.html?bookingId=DEMO&movie=${params.get('movie')}&time=${params.get('time')}&date=${params.get('date')}&seats=${seatsParam}&total=${totalText}&name=${encodeURIComponent(nameInput)}&email=${encodeURIComponent(emailInput)}`;
     }
 }
