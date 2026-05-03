@@ -233,6 +233,105 @@ body {
     color: white;
 }
 
+
+/* -----------------  Login & Authentication -----------------  */
+
+/* Scoped body class to apply the dark background ONLY to login.html */
+.login-body {
+    margin: 0;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                url('../media/theater-bg.jpg'); /* Ensure this image exists in your media folder */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.1); /* Glassmorphism effect */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    text-align: center;
+    color: white; /* Ensures text is readable against dark bg */
+}
+
+.login-card h1 { 
+    font-size: 2.5rem; 
+    margin-bottom: 10px; 
+    color: #ff4d4d; /* Matches your .sign-in color */
+}
+
+.login-card p {
+    color: #ccc;
+    margin-bottom: 30px;
+}
+
+.input-group { 
+    text-align: left; 
+    margin-bottom: 20px; 
+}
+
+.input-group label { 
+    display: block; 
+    margin-bottom: 8px; 
+    font-size: 0.9rem; 
+    color: #eee;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    box-sizing: border-box;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #ff4d4d;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+    margin-top: 10px;
+}
+
+.login-btn:hover { 
+    background: #e63939; 
+    transform: translateY(-2px); 
+}
+
+.error-msg {
+    color: #ff4d4d;
+    background: rgba(255, 77, 77, 0.1);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: none;
+    font-size: 0.85rem;
+}
+
+
 /* ----------------- Footer ------------------------ */
 .main-footer {
     border-top: 1px solid #eee;
