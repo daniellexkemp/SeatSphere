@@ -6,7 +6,7 @@
 ---
 
 <p align="center">
-  <img src="./3_integration_testing/screenshots/3_ui_home.png" width="500" alt="SeatSphere Home Screen">
+  <img src="./3_integration_testing/Screenshots/3_ui_home.png" width="500" alt="SeatSphere Home Screen">
 </p>
 
 ## 📖 Project Overview
