@@ -52,12 +52,8 @@ These checks ensure consistency between backend data and frontend behavior:
 
 ---
 
-## 📸 Evidence (Optional but Recommended)
+## 📸 Evidence 
 
-To strengthen documentation, include screenshots such as:
 
-- **Screenshot 1:** Seat map showing Hall 1’s 24-seat layout  
-- **Screenshot 2:** Successful booking confirmation page  
-- **Screenshot 3:** `tickets` table in MySQL Workbench with newly created entries  
 
 ---
