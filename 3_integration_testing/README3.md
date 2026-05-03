@@ -14,7 +14,7 @@ To verify the handshake between the Java API and the Node.js frontend, both serv
 
 | Backend (Port 8080) | Frontend (Port 3000) |
 | :--- | :--- |
-| ![Backend](./screenshots/1_backend_live.png) | ![Frontend](./screenshots/2_frontend_live.png) |
+| ![Backend](./screenshots/0_backend_live.png) | ![Frontend](./screenshots/0_frontend_live.png) |
 
 ---
 
