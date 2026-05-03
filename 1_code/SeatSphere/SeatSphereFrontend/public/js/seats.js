@@ -20,13 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
 function initHeaderInfo() {
     const params = new URLSearchParams(window.location.search);
     const movieTitle = params.get('movie');
-    const showtime = params.get('time');
 
     const movieDisplay = document.getElementById('movie-name-display');
-    const timeDisplay = document.getElementById('time-display');
-    
+
     if (movieDisplay && movieTitle) movieDisplay.innerText = decodeURIComponent(movieTitle);
-    if (timeDisplay && showtime) timeDisplay.innerText = showtime;
+    
+    // Note: Time and Date are now handled by renderSeats() to ensure 
+    // they come directly from the MySQL database source of truth.
 }
 
 // -------------- SEAT RENDERING (THEATER STYLE) -------------------------
@@ -34,14 +34,58 @@ async function renderSeats() {
     const seatMap = document.getElementById('seat-map');
     if (!seatMap) return;
 
+    const params = new URLSearchParams(window.location.search);
+    const showtimeId = params.get('showtimeId'); 
+
+    if (!showtimeId) {
+        seatMap.innerHTML = `<p class="text-danger small">Error: No Showtime ID found in URL.</p>`;
+        return;
+    }
+
     seatMap.style.display = 'block'; 
 
     try {
-        const response = await fetch('http://localhost:8080/api/seats');
-        const seats = await response.json();
+        // --- FETCH SHOWTIME DETAILS, SEATS, AND RESERVED TICKETS ---
+        const [showtimeResponse, seatsResponse, reservedResponse] = await Promise.all([
+            fetch(`http://localhost:8080/api/showtimes/${showtimeId}`),
+            fetch(`http://localhost:8080/api/seats/showtime/${showtimeId}`),
+            fetch(`http://localhost:8080/api/bookings/tickets/reserved/${showtimeId}`)
+        ]);
+
+        const showtimeData = await showtimeResponse.json();
+        const seats = await seatsResponse.json();
+        const reservedTickets = await reservedResponse.json();
+
+        // --- FIXTURE: DATE & TIME FROM MYSQL ---
+        if (showtimeData && showtimeData.startTime) {
+            const dbDate = new Date(showtimeData.startTime);
+            
+            // Format Date: Monday, May 4
+            const dateStr = dbDate.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            // Format Time: 7:30 PM
+            const timeStr = dbDate.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit', 
+                hour12: true 
+            });
+
+            const dateDisplay = document.getElementById('date-display');
+            const timeDisplay = document.getElementById('time-display');
+
+            if (dateDisplay) dateDisplay.innerText = dateStr;
+            if (timeDisplay) timeDisplay.innerText = timeStr;
+        }
+
+        // --- MAP THE RESERVED LABELS FOR EASY LOOKUP ---
+        const reservedLabels = reservedTickets.map(t => t.seatLabel);
 
         if (!seats || seats.length === 0) {
-            seatMap.innerHTML = `<p class="text-muted small">Database is empty.</p>`;
+            seatMap.innerHTML = `<p class="text-muted small">This hall has no seats assigned.</p>`;
             return;
         }
 
@@ -50,32 +94,34 @@ async function renderSeats() {
         // Group seats by Row (A, B, C, etc.)
         const rows = {};
         seats.forEach(seat => {
-            const rowLabel = seat.seatRow || 'A';
+            const rowLabel = seat.seatRow;
             if (!rows[rowLabel]) rows[rowLabel] = [];
             rows[rowLabel].push(seat);
         });
-
+        
+        // Sort rows alphabetically and seats numerically
         Object.keys(rows).sort().forEach(rowKey => {
             const rowDiv = document.createElement('div');
             rowDiv.classList.add('d-flex', 'justify-content-center', 'gap-2', 'mb-2');
             
-            rows[rowKey].forEach(seat => {
+            rows[rowKey].sort((a, b) => a.seatNumber - b.seatNumber).forEach(seat => {
                 const seatBtn = document.createElement('button');
                 seatBtn.classList.add('seat');
+
+                const seatLabel = `${seat.seatRow}-${seat.seatNumber}`;
                 
-                // --- HANDICAP LOGIC START ---
-                const seatLabel = `${rowKey}${seat.seatNumber}`;
-                const isHandicap = (rowKey === 'A' && (seat.seatNumber === 1 || seat.seatNumber === 4));
-                if (isHandicap) {
-                    // This adds the icon and the label (e.g., ♿ A1)
+                seatBtn.dataset.row = seat.seatRow;
+                seatBtn.dataset.number = seat.seatNumber;
+                
+                if (seat.handicap) {
                     seatBtn.innerHTML = `<i class="bi bi-person-wheelchair"></i> ${seatLabel}`;
                     seatBtn.title = "Handicap Accessible"; 
+                    seatBtn.classList.add('handicap-accessible');
                 } else {
                     seatBtn.innerText = seatLabel;
                 }
                 
-                const isOccupied = seat.occupied || seat.isOccupied;
-                if (isOccupied) { 
+                if (reservedLabels.includes(seatLabel)) { 
                     seatBtn.classList.add('reserved'); 
                     seatBtn.disabled = true; 
                 } else {
@@ -93,40 +139,48 @@ async function renderSeats() {
 
     } catch (error) {
         console.error("Fetch Error:", error);
-        seatMap.innerHTML = `<p class="text-danger small">Backend Offline.</p>`;
+        seatMap.innerHTML = `<p class="text-danger small">Backend Offline or Endpoint Error.</p>`;
     }
 }
 
 // -------------- UI UPDATES -------------------------
 function updateBookingInfo() {
+    const params = new URLSearchParams(window.location.search);
+    const moviePrice = parseFloat(params.get('price')) || 10.00; 
+
     const selected = document.querySelectorAll('.seat.selected').length;
     const countDisplay = document.getElementById('selected-count');
     const priceDisplay = document.getElementById('total-price');
 
     if (countDisplay) countDisplay.innerText = selected;
-    if (priceDisplay) priceDisplay.innerText = `$${(selected * 8.00).toFixed(2)}`;
+    if (priceDisplay) priceDisplay.innerText = `$${(selected * moviePrice).toFixed(2)}`;
 }
 
 // -------------- NAVIGATION LOGIC -------------------------
 function handleBooking() {
     const selectedSeats = document.querySelectorAll('.seat.selected');
+    const params = new URLSearchParams(window.location.search);
     
     if (selectedSeats.length === 0) {
         alert("Please select a seat first!");
         return;
     }
 
-    // Capture current UI state
-    const movieTitle = document.getElementById('movie-name-display')?.innerText || "Movie";
-    const showtime = document.getElementById('time-display')?.innerText || "Time";
-    const seatLabels = Array.from(selectedSeats).map(s => s.innerText);
+    const showtimeId = params.get('showtimeId');
     
+    const seatData = Array.from(selectedSeats).map(s => 
+        `${s.dataset.row}-${s.dataset.number}`
+    ).join(',');
+    
+    // Use decodeURIComponent and encodeURIComponent to ensure clean URL transfer
     const queryParams = new URLSearchParams({
-        movie: movieTitle,
-        time: showtime,
-        seats: seatLabels.join(',')
+        showtimeId: showtimeId,
+        movie: document.getElementById('movie-name-display')?.innerText || "Movie",
+        time: document.getElementById('time-display')?.innerText || "Time",
+        date: document.getElementById('date-display')?.innerText || "Date",
+        seats: seatData,
+        price: params.get('price') || "10.00"
     });
 
-    // Execution of the "Happy Path" redirect
     window.location.href = `checkout.html?${queryParams.toString()}`;
 }
