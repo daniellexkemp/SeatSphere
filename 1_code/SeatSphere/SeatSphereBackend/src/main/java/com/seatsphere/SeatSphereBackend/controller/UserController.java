@@ -43,7 +43,11 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-
+    @PostMapping("/init-setup")
+    public String initSetup() {
+        userService.initializeSystemUsers();
+        return "System users initialized with hashed passwords!";
+    }
 
     @PostMapping("/login")
     public User login(@RequestBody User loginRequest) {
