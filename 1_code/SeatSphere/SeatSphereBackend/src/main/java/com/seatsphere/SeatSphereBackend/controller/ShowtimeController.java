@@ -23,6 +23,14 @@ public class ShowtimeController {
         return showtimeRepository.findAll();
     }
 
+
+    // This handles: http://localhost:8080/api/showtimes/{id}
+@GetMapping("/{id}")
+public Showtime getById(@PathVariable Long id) {
+    return showtimeRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Showtime not found with id: " + id));
+}
+
     // This handles: http://localhost:8080/api/showtimes/movie/1
     @GetMapping("/movie/{movieId}")
     public List<Showtime> getByMovie(@PathVariable Long movieId) {
