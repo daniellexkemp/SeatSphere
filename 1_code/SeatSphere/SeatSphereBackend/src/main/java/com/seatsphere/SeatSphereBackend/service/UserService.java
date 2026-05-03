@@ -71,4 +71,39 @@ public class UserService {
                     return userRepository.save(updatedUser);
                 });
     }
+
+    public void initializeSystemUsers() {
+        // Data for the 4 specific  ---- CHANGE THESE TO YOUR LIKING ----
+        // REMEMBER TO curl -X POST http://localhost:####/api/users/init-setup INSIDE THE COMMAND PROMPT TO SEND THESE TO THE BACKEND DATABASE
+        String[][] staffData = {
+            {"First_Name", "Last_Name", "manager_FirstName", "FirstName@seatsphere.com", "MANAGER"},
+            {"First_Name", "Last_Name", "admin_system", "root@seatsphere.com", "ADMIN"},
+            {"First_Name", "Last_Name", "staff_FirstName", "FirstName@seatsphere.com", "STAFF"},
+            {"First_Name", "Last_Name", "customer_FirstName", "FirstName@gmail.com", "CUSTOMER"}
+        };
+
+        for (String[] data : staffData) {
+            // Find existing user to avoid duplicate errors
+            User existing = userRepository.findByUsername(data[2]);
+            if (existing != null) {
+                userRepository.delete(existing);
+            }
+
+            // Create a new User object
+            User newUser = new User();
+            newUser.setFirstName(data[0]);
+            newUser.setLastName(data[1]);
+            newUser.setUsername(data[2]);
+            newUser.setEmail(data[3]);
+            newUser.setRole(data[4]);
+            
+            // Use your existing plain-text password requirement
+            // This will be hashed by the createUser method
+            // You can change "password123" to whatever default password you want for these users
+            newUser.setPassword("password123"); 
+            
+            // Pass it through your existing createUser method to handle hashing
+            this.createUser(newUser);
+        }
+    }
 }
