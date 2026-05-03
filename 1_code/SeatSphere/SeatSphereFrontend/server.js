@@ -4,6 +4,7 @@ const app = express();
 
 const fetch = require('node-fetch'); // npm install node-fetch@2
 
+// New route to fetch all bookings (for dashboard)
 app.get('/api/bookings', async (req, res) => {
     try {
         const response = await fetch('http://localhost:8080/api/bookings');
@@ -36,9 +37,29 @@ app.get('/my-bookings', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
+// ROUTE: Movie Selection Page
 app.listen(PORT, () => {
     console.log(`====================================================`);
     console.log(`SeatSphere Frontend is running at: http://localhost:3000`);
     console.log(`Make sure your Java Backend is running on port 8080!`);
     console.log(`====================================================`);
+});
+
+// NEW ROUTE: Delete a booking by ID
+app.delete('/api/bookings/:id', async (req, res) => {
+    try {
+        const bookingId = req.params.id;
+        const response = await fetch(`http://localhost:8080/api/bookings/${bookingId}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            res.status(200).send({ message: 'Deleted successfully' });
+        } else {
+            res.status(response.status).json({ error: 'Backend failed to delete' });
+        }
+    } catch (err) {
+        console.error("Proxy Error:", err);
+        res.status(500).json({ error: 'Proxy could not reach Java backend' });
+    }
 });
