@@ -1,3 +1,4 @@
+<!--dashboard.html-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,17 +8,25 @@
 <body class="bg-light">
 
     <!-- -------------- NAVIGATION BAR------------------------->  
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="/">SEATSPHERE</a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/index.html">HappySeats</a>
-                <a class="nav-link" href="/">Movies</a>
-                <a class="nav-link active" href="/my-bookings">Tickets</a>
-                <a class="nav-link btn btn-outline-primary ms-lg-3" href="/login">Login</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">SEATSPHERE</a>
+        <div class="navbar-nav ms-auto align-items-center">
+            <a class="nav-link text-warning fw-bold" href="index.html">HappySeats</a>
+            <a class="nav-link" href="index.html">Movies</a>
+            <a class="nav-link active" href="dashboard.html">Tickets</a>
+            
+            <div class="ms-lg-3">
+                <!-- Added 'text-white' so the welcome message is visible -->
+                <span id="nav-auth-status" class="text-white small">
+                    <a href="login.html" class="text-danger fw-bold text-decoration-none">Sign In</a> 
+                    <span class="text-white"> or </span> 
+                    <a href="register.html" class="text-white fw-bold text-decoration-none">Create Account</a>
+                </span>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- -------------- MAIN CONTENT ------------------------->  
     <div class="container">
@@ -46,13 +55,22 @@
         </div>
     </div>
 
-    <!-- -------------- JAVASCRIPT ------------------------->  
-    <script>
+    <!-- -------------- JAVASCRIPT -------------------------> 
+<script src="js/auth.js"></script>
+<script>
 async function loadDashboard() {
     const tableBody = document.getElementById('bookings-table-body');
+    
+    // Check role for the delete button
+    const userData = localStorage.getItem('user');
+    let isStaff = false;
+    
+    if (userData) {
+        const user = JSON.parse(userData);
+        isStaff = user && (user.role === 'ADMIN' || user.role === 'MANAGER');
+    }
 
     try {
-        // Fetch bookings from Node.js proxy
         const response = await fetch('/api/bookings');
 
         if (!response.ok) {
@@ -62,11 +80,10 @@ async function loadDashboard() {
         const bookings = await response.json();
 
         if (!bookings || bookings.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="5" class="text-center py-4">No bookings found in database.</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="6" class="text-center py-4">No bookings found.</td></tr>';
             return;
         }
 
-        // Populate table with live data
         tableBody.innerHTML = bookings.map(b => `
             <tr>
                 <td class="fw-bold">#${b.id}</td>
@@ -76,17 +93,42 @@ async function loadDashboard() {
                 <td>
                     ${b.tickets.map(t => `<span class="badge bg-success font-monospace m-1">${t.qrCodeData}</span>`).join('')}
                 </td>
+                <td>
+                    ${isStaff ? `
+                        <button class="btn btn-outline-danger btn-sm" onclick="deleteBooking(${b.id})">
+                            Delete
+                        </button>
+                    ` : ''}
+                </td>
             </tr>
         `).join('');
 
     } catch (error) {
         console.error('Error loading bookings:', error);
-        tableBody.innerHTML = '<tr><td colspan="5" class="text-center text-danger">Error loading bookings.</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="6" class="text-center text-danger">Error loading bookings.</td></tr>';
     }
 }
 
-// Initialize dashboard after DOM loads
+async function deleteBooking(bookingId) {
+    if (!confirm(`Are you sure you want to delete Booking #${bookingId}?`)) return;
+
+    try {
+        const response = await fetch(`/api/bookings/${bookingId}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            loadDashboard();
+        } else {
+            alert("Failed to delete booking.");
+        }
+    } catch (error) {
+        console.error('Delete Error:', error);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', loadDashboard);
-    </script>
+</script>
+    
 </body>
 </html>
