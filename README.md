@@ -10,7 +10,7 @@
 </p>
 
 ## 📖 Project Overview
-**SeatSphere** (branded as *HappySeats*) is a full-stack, decoupled web application designed to streamline the cinema-going experience. Users can browse a curated selection of 13 movies, view 62 unique showtimes across 6 different theater halls, and reserve seats with real-time accessibility (ADA) considerations.
+**SeatSphere** (branded as *HappySeats*) is a full-stack, decoupled web application designed to streamline the cinema-going experience. Users can browse a curated selection of 13 movies, view 60+ unique showtimes across 6 different theater halls, and reserve seats with real-time accessibility (ADA) considerations.
 
 ### Key Features:
 * **Decoupled Architecture:** Separate Backend (API) and Frontend (UI) for maximum scalability.
