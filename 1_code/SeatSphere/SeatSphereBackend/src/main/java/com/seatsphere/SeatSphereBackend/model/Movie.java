@@ -9,8 +9,8 @@ import java.util.ArrayList;
  * This entity serves as the catalog for all potential scheduled showtimes.
  *
  * @author Danielle Kemp
- * @version 1.1
- * @since 2026-03-08
+ * @version 8.1
+ * @since 2026-05-01
  */
 
 @Entity
