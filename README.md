@@ -92,6 +92,8 @@ SeatSphere utilizes a decoupled Full-Stack architecture. The **Java Spring Boot 
   ┣ 📜 checkout.html
   ┣ 📜 confirmation.html
   ┣ 📜 dashboard.html
+  ┣ 📜 login.html
+  ┣ 📜 register.html
   ┗ ⚡ server.js
 ```
 ---
