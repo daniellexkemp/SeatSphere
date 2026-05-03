@@ -1,3 +1,4 @@
+<!--confirmation.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +32,12 @@
                 <a class="nav-link" href="#">Showtimes</a>
                 <div class="d-flex align-items-center border-start ps-4">
                     <i class="bi bi-person-circle fs-3 text-secondary me-2"></i>
-                    <span class="small"><span class="text-danger fw-bold">Sign In</span> or <span class="text-decoration-underline text-muted">Create an Account</span></span>
+
+                    <!--Sign IN, Creat an Account, or Authentication-->
+                    <span id="nav-auth-status" class="small"><span class="text-danger fw-bold"><a href="login.html">Sign In</a></span> 
+                    or 
+                    <span class="text-decoration-underline text-muted"><a href="register.html">Create an Account</a></span></span>
+
                 </div>
             </div>
         </div>
@@ -47,8 +53,8 @@
                         <span id="theatre-name">Indianapolis Theatre</span> <i class="bi bi-geo-alt-fill text-danger"></i>
                     </p>
                     <p class="fw-medium">
-                        <span id="display-date">Tuesday, March 10</span> | 
-                        <span id="display-time">10:00 AM</span> | 
+                        <span id="display-date">Movie Date</span> | 
+                        <span id="display-time">Movie Time</span> | 
                         Standard Format
                     </p>
                 </div>
@@ -103,6 +109,8 @@
         </div>
     </footer>
 
+    <!-- --------------JAVASCRIPT------------------------->
+    <script src="js/auth.js"></script>
     <script src="/js/confirmation.js"></script>
 </body>
 </html>
