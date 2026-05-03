@@ -65,8 +65,7 @@ SeatSphere utilizes a decoupled Full-Stack architecture. The **Java Spring Boot 
 ┃ ┃ ┃  ┣ ☕ ShowtimeRepository.java
 ┃ ┃ ┃  ┣ ☕ TheaterHallRepository.java
 ┃ ┃ ┃  ┣ ☕ TicketRepository.java
-┃ ┃ ┃  ┗ ☕  UserRepository.java
-┃ ┃ ┃  ┗ ☕ 
+┃ ┃ ┃  ┗ ☕ UserRepository.java
 ┃ ┃ ┣ 📂 service
 ┃ ┃ ┃  ┣ ☕ BookingService.java
 ┃ ┃ ┃  ┣ ☕ MovieService.java
