@@ -1,0 +1,108 @@
+<!--register.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | HappySeats</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-body">
+
+<div class="login-card" style="max-width: 500px;">
+    <h1>HappySeats</h1>
+    <p>Join the community and start booking!</p>
+    
+    <div id="msgBox" class="error-msg" style="display: none; padding: 10px; margin-bottom: 15px; border-radius: 5px;"></div>
+
+    <form id="registerForm">
+        <div style="display: flex; gap: 15px;">
+            <div class="input-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" required placeholder="John">
+            </div>
+            <div class="input-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" required placeholder="Doe">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" required placeholder="johndoe123">
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" required placeholder="john@example.com">
+        </div>
+        
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required placeholder="••••••••">
+        </div>
+        
+        <button type="submit" class="login-btn">Create Account</button>
+    </form>
+
+    <div style="margin-top: 20px;">
+        <p style="font-size: 0.85rem;">Already have an account? <a href="login.html">Sign In</a></p>
+    </div>
+    <div>
+        <a href="index.html">Return to HappySeats</a>
+        <br>
+        <span>© SeatSphere</span>
+    </div>
+</div>
+<!-- -------------- JAVASCRIPT ------------------------->
+<script src="js/auth.js"></script>
+<script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const msgBox = document.getElementById('msgBox');
+        msgBox.style.display = 'none';
+
+        // 1. Gather the data from the form
+        const payload = {
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            role: 'CUSTOMER' // Default role for new signups
+        };
+
+        try {
+            // 2. Send the data to your Java backend (check your port!)
+            const response = await fetch('http://localhost:8080/api/users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                // 3. Handle Success
+                msgBox.style.display = 'block';
+                msgBox.style.backgroundColor = '#d4edda'; // Green background
+                msgBox.style.color = '#155724';
+                msgBox.innerText = "Success! Account created. Redirecting to login...";
+                
+                // Redirect to login after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            } else {
+                // 4. Handle Error (e.g., username already taken)
+                msgBox.style.display = 'block';
+                msgBox.style.backgroundColor = '#f8d7da'; // Red background
+                msgBox.style.color = '#721c24';
+                msgBox.innerText = "Error: Could not create account. Username or email might be taken.";
+            }
+        } catch (err) {
+            console.error("Connection Error:", err);
+            alert("Connection Refused. Make sure your Spring Boot backend is running on port 8080.");
+        }
+    });
+</script>
+</body>
+</html>
