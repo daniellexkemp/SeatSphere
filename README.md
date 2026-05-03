@@ -1,6 +1,6 @@
 # 🎟️ SeatSphere: Movie Ticket Booking System
 **Lead Developer:** Danielle Kemp  
-**Version:** 1.0  
+**Version:** 2.0  
 **Tech Stack:** Java Spring Boot, Node.js, MySQL
 
 ---
@@ -42,23 +42,57 @@ SeatSphere utilizes a decoupled Full-Stack architecture. The **Java Spring Boot 
 ┃ ┣ 📂 src/main/java/com/seatsphere
 ┃ ┃ ┣ 📂 config
 ┃ ┃ ┣ 📂 controller
+┃ ┃ ┃  ┣ ☕ BookingController.java
+┃ ┃ ┃  ┣ ☕ MovieController.java
+┃ ┃ ┃  ┣ ☕ SeatController.java
+┃ ┃ ┃  ┣ ☕ ShowtimeController.java
+┃ ┃ ┃  ┣ ☕ TheaterController.java
+┃ ┃ ┃  ┣ ☕ UserController.java
+┃ ┃ ┃  ┗ ☕ ViewController.java
 ┃ ┃ ┣ 📂 model
+┃ ┃ ┃  ┣ ☕ Booking.java
+┃ ┃ ┃  ┣ ☕ Movie.java
+┃ ┃ ┃  ┣ ☕ Seat.java
+┃ ┃ ┃  ┣ ☕ SeatResponseDTO.java
+┃ ┃ ┃  ┣ ☕ Showtime.java
+┃ ┃ ┃  ┣ ☕ TheaterHall.java
+┃ ┃ ┃  ┣ ☕ Ticket.java
+┃ ┃ ┃  ┗ ☕ User.java
 ┃ ┃ ┣ 📂 repository
+┃ ┃ ┃  ┣ ☕ BookingRepository.java
+┃ ┃ ┃  ┣ ☕ MovieRepository.java
+┃ ┃ ┃  ┣ ☕ SeatRepository.java
+┃ ┃ ┃  ┣ ☕ ShowtimeRepository.java
+┃ ┃ ┃  ┣ ☕ TheaterHallRepository.java
+┃ ┃ ┃  ┣ ☕ TicketRepository.java
+┃ ┃ ┃  ┗ ☕  UserRepository.java
+┃ ┃ ┃  ┗ ☕ 
 ┃ ┃ ┣ 📂 service
-┃ ┃ ┗ 📜 SeatSphereBackendApplication.java
+┃ ┃ ┃  ┣ ☕ BookingService.java
+┃ ┃ ┃  ┣ ☕ MovieService.java
+┃ ┃ ┃  ┣ ☕ SeatService.java
+┃ ┃ ┃  ┣ ☕ TheaterService.java
+┃ ┃ ┃  ┗ ☕ UserService.java
+┃ ┃ ┗ ☕ SeatSphereBackendApplication.java
 ┃ ┗ 📂 src/main/resources
 ┃
 ┗ 📂 SeatSphereFrontend
   ┣ 📂 public
   ┃ ┣ 📂 css
+  ┃ ┣  ┗ 🎨style.css
   ┃ ┣ 📂 js
-  ┃ ┗ 📂 media
+  ┃ ┃  ┣ ⚡auth.js
+  ┃ ┃  ┣ ⚡checkout.js
+  ┃ ┃  ┣ ⚡confirmation.js
+  ┃ ┃  ┣ ⚡script.js
+  ┃ ┃  ┗ ⚡seats.js
+  ┃ ┗ 📂 📷 media
   ┣ 📜 index.html
   ┣ 📜 seats.html
   ┣ 📜 checkout.html
   ┣ 📜 confirmation.html
   ┣ 📜 dashboard.html
-  ┗ 📜 server.js
+  ┗ ⚡ server.js
 ```
 ---
 
