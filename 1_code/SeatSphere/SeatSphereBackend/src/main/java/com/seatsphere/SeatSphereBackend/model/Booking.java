@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * to their chosen screening. Acts as the parent for individual Ticket generation.
  *
  * @author Danielle Kemp
- * @version 1.0
- * @since 2026-03-04
+ * @version 8.1
+ * @since 2026-05-01
  */
 
 @Entity
