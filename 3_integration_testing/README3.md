@@ -20,7 +20,7 @@ To verify the handshake between the Java API and the Node.js frontend, both serv
 
 ### 🛣️ The User Journey Flow
 1. **`register.html`**: New users register details, which are persisted to the `users` table with the default `CUSTOMER` role.
-   ![Register Page](.Screenshots/1_ui_create_account.png).
+   ![Register Page](./Screenshots/1_ui_create_account.png).
 2..  **`login.html`**: Authenticates credentials against the database to establish a secure session.
    ![Login Page](./Screenshots/2_ui_login.png).
 3..  **`index.html`**: Fetches movie list (Dracula, Zootopia 2, etc.) and 60+ showtimes from MySQL.
@@ -39,8 +39,6 @@ To verify the handshake between the Java API and the Node.js frontend, both serv
 ---
 
 ## 🛠️ Ongoing Development
-* **Admin Dashboard Sync:** Currently working on fully syncing the Frontend Admin Dashboard with the Backend for live database management.
-* **Data Refining:** Refining fetch calls for Customer Name and Hall name on the final confirmation page.
-
+* **None at this time but stay tuned for more.** 
 
 
